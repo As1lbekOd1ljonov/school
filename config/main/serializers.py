@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import User, Admin, Teacher, Student
+from .models import *
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
@@ -42,6 +42,21 @@ class AdminSerializers(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+    class ClassSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Class
+            fields = "__all__"
+
+    class GroupSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Group
+            fields = "__all__"
+
+    class LessonSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Lesson
+            fields = "__all__"
 
 
 class TeacherSerializers(serializers.ModelSerializer):

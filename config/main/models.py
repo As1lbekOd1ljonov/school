@@ -20,6 +20,30 @@ class Admin(models.Model):
         return self.user.username
 
 
+class Class(models.Model):
+    class_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.class_name
+
+
+class Group(models.Model):
+    group_name = models.CharField(max_length=100)
+    class_assigned = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='groups')
+
+    def __str__(self):
+        return self.group_name
+
+class Lesson(models.Model):
+    lesson_title = models.CharField(max_length=100)
+    class_assigned = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='lessons')
+    teacher = models.ForeignKey('Teacher', on_delete=models.SET_NULL, null=True, related_name='lessons')
+
+    def __str__(self):
+        return self.lesson_title
+
+
+
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
